@@ -6,9 +6,31 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:form>
-        <h:inputTextarea value="#{textareaBean.message}" required="true" style="#{textareaBean.message.length() > 10 ? 'border: 2px solid red' : ''}" />
-        <h:commandButton id="submitButton" binding="#{submitButton}" value="Submit" action="#{textareaBean.submit()}"
-                         disabled="#{empty textareaBean.message}" />
-    </h:form>
+    <style>
+        .modal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+    </style>
+
+    <!--h:form>
+        <h:commandButton value="Open modal" onclick="document.getElementById('modalPanel').style.display = 'block'" />
+    </h:form-->
+<!-- fenetre modale -->
+    <!--h:panelGroup id="modalPanel" styleClass="modal" style="display: none"-->
+        <h:form>
+            <h:inputTextarea value="#{textareaBean.message}" required="true" style="#{textareaBean.message.length() > 10 ? 'border: 10px solid red;' : ''}" />
+            <br /><br />
+            <!--h:commandButton id="submitButton" binding="#{submitButton}" value="Submit" action="#{textareaBean.submit()}" disabled="false" /-->
+            <h:commandButton value="Submit" onclick="event.preventDefault();">
+                <f:ajax event="click" execute="@form" render="@form" listener="#{textareaBean.submit}" />
+            </h:commandButton>
+        </h:form>
+    <!--/h:panelGroup-->
 </html>
